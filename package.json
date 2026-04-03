@@ -2,7 +2,7 @@
   "name": "ashina-task-tracker",
   "displayName": "MD Task Tracker",
   "description": "",
-  "version": "0.0.3",
+  "version": "0.1.0",
   "publisher": "AshinaLabs",
   "repository": {
     "type": "git",
@@ -28,6 +28,19 @@
         }
       ]
     },
+    "configuration": {
+      "title": "MD Task Tracker",
+      "properties": {
+        "mdTaskTracker.excludePaths": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "default": [],
+          "description": "List of relative paths to exclude from task tracking."
+        }
+      }
+    },
     "views": {
       "md-tasks-explorer": [
         {
@@ -47,6 +60,16 @@
         "command": "md-tasks-tracker.openAndHighlightTasks",
         "title": "Open File and Highlight Tasks",
         "icon": "$(go-to-file)"
+      },
+      {
+        "command": "md-tasks-tracker.excludePath",
+        "title": "Exclude from Tracking",
+        "icon": "$(close)"
+      },
+      {
+        "command": "md-tasks-tracker.clearExclusions",
+        "title": "Clear All Exclusions",
+        "icon": "$(clear-all)"
       }
     ],
     "menus": {
@@ -55,6 +78,18 @@
           "command": "md-tasks-tracker.refresh",
           "when": "view == md-tasks-view",
           "group": "navigation"
+        },
+        {
+          "command": "md-tasks-tracker.clearExclusions",
+          "when": "view == md-tasks-view",
+          "group": "navigation"
+        }
+      ],
+      "view/item/context": [
+        {
+          "command": "md-tasks-tracker.excludePath",
+          "when": "view == md-tasks-view",
+          "group": "inline"
         }
       ]
     }

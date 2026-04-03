@@ -7,9 +7,15 @@ export class MarkdownTaskProvider implements vscode.TreeDataProvider<TaskItem> {
     readonly onDidChangeTreeData: vscode.Event<TaskItem | undefined | void> = this._onDidChangeTreeData.event;
 
     constructor() {
-        // Refresh automatically when a file is saved
+        // Refresh automatically when a file is saved or configuration changed
         vscode.workspace.onDidSaveTextDocument(doc => {
             if (doc.fileName.endsWith('.md')) {
+                this.refresh();
+            }
+        });
+
+        vscode.workspace.onDidChangeConfiguration(e => {
+            if (e.affectsConfiguration('mdTaskTracker.excludePaths')) {
                 this.refresh();
             }
         });
@@ -35,16 +41,28 @@ export class MarkdownTaskProvider implements vscode.TreeDataProvider<TaskItem> {
 
         // Get all md files in the workspace
         const mdFiles = await vscode.workspace.findFiles('**/*.md', '**/node_modules/**');
+        const excludePaths = vscode.workspace.getConfiguration('mdTaskTracker').get<string[]>('excludePaths') || [];
+        
         const rootItems: TaskItem[] = [];
         const itemMap = new Map<string, TaskItem>();
 
         for (const file of mdFiles) {
+            const relativePath = vscode.workspace.asRelativePath(file);
+            
+            // Check if file or any parent folder is excluded
+            if (this.isExcluded(relativePath, excludePaths)) {
+                continue;
+            }
+
             const document = await vscode.workspace.openTextDocument(file);
             const text = document.getText();
+            
+            // Filter out code blocks before counting
+            const strippedText = this.stripCode(text);
 
             // Flexible regex: finds [], [ ], [x], or [X] with any or no prefix
-            const totalMatch = text.match(/\[[ xX]?\]/g);
-            const completedMatch = text.match(/\[[xX]\]/g);
+            const totalMatch = strippedText.match(/\[[ xX]?\]/g);
+            const completedMatch = strippedText.match(/\[[xX]\]/g);
 
             const total = totalMatch ? totalMatch.length : 0;
             const completed = completedMatch ? completedMatch.length : 0;
@@ -101,6 +119,23 @@ export class MarkdownTaskProvider implements vscode.TreeDataProvider<TaskItem> {
         // The loop above adds to rootItems only if parent is undefined.
         
         return finalRoots.sort((a, b) => b.percentage - a.percentage);
+    }
+
+    private isExcluded(relativePath: string, excludePaths: string[]): boolean {
+        return excludePaths.some(excludePath => {
+            const normalizedRelative = relativePath.replace(/\\/g, '/');
+            const normalizedExclude = excludePath.replace(/\\/g, '/');
+            return normalizedRelative === normalizedExclude || normalizedRelative.startsWith(normalizedExclude + '/');
+        });
+    }
+
+    private stripCode(text: string): string {
+        // Replace fenced code blocks with empty space to preserve length if needed, 
+        // but here we just need to skip content.
+        let stripped = text.replace(/```[\s\S]*?```/g, (match) => ' '.repeat(match.length));
+        // Replace inline code
+        stripped = stripped.replace(/`[^`\n]+?`/g, (match) => ' '.repeat(match.length));
+        return stripped;
     }
 }
 

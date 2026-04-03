@@ -14,15 +14,24 @@ const uncompletedDecoration = vscode.window.createTextEditorDecorationType({
     borderRadius: '3px'
 });
 
+function stripCode(text: string): string {
+    // Replace fenced code blocks with spaces to preserve indices
+    let stripped = text.replace(/```[\s\S]*?```/g, (match) => ' '.repeat(match.length));
+    // Replace inline code with spaces
+    stripped = stripped.replace(/`[^`\n]+?`/g, (match) => ' '.repeat(match.length));
+    return stripped;
+}
+
 function applyHighlights(editor: vscode.TextEditor) {
     if (!editor || !editor.document) return;
     const text = editor.document.getText();
+    const strippedText = stripCode(text);
     const regex = /\[[ xX]?\]/g;
     let match;
     const completedRanges: vscode.Range[] = [];
     const uncompletedRanges: vscode.Range[] = [];
 
-    while ((match = regex.exec(text)) !== null) {
+    while ((match = regex.exec(strippedText)) !== null) {
         const startPos = editor.document.positionAt(match.index);
         const endPos = editor.document.positionAt(match.index + match[0].length);
         const range = new vscode.Range(startPos, endPos);
@@ -81,7 +90,38 @@ export function activate(context: vscode.ExtensionContext) {
         trackedDocuments.delete(doc.uri.toString());
     });
 
-    context.subscriptions.push(refreshCommand, openAndHighlightCommand, saveSubscription, closeSubscription);
+    // Command to exclude a path
+    let excludeCommand = vscode.commands.registerCommand('md-tasks-tracker.excludePath', async (item: any) => {
+        if (!item || !item.resourceUri) return;
+        
+        const relativePath = vscode.workspace.asRelativePath(item.resourceUri);
+        const config = vscode.workspace.getConfiguration('mdTaskTracker');
+        const excludePaths = config.get<string[]>('excludePaths') || [];
+        
+        if (!excludePaths.includes(relativePath)) {
+            excludePaths.push(relativePath);
+            await config.update('excludePaths', excludePaths, vscode.ConfigurationTarget.Workspace);
+            vscode.window.showInformationMessage(`Excluded: ${relativePath}`);
+            markdownTaskProvider.refresh();
+        }
+    });
+
+    // Command to clear exclusions
+    let clearExclusionsCommand = vscode.commands.registerCommand('md-tasks-tracker.clearExclusions', async () => {
+        const config = vscode.workspace.getConfiguration('mdTaskTracker');
+        await config.update('excludePaths', [], vscode.ConfigurationTarget.Workspace);
+        vscode.window.showInformationMessage('All exclusions cleared.');
+        markdownTaskProvider.refresh();
+    });
+
+    context.subscriptions.push(
+        refreshCommand, 
+        openAndHighlightCommand, 
+        excludeCommand, 
+        clearExclusionsCommand,
+        saveSubscription, 
+        closeSubscription
+    );
 }
 
 export function deactivate() {

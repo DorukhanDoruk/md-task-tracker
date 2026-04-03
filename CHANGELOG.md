@@ -2,6 +2,16 @@
 
 All notable changes to the "md-task-tracker" extension will be documented in this file.
 
+## [0.1.0] - 2026-04-03
+
+### Added
+- **Exclude Files and Folders**: Right-click on any file or folder in the Task Progress view to exclude it from tracking.
+- **Ignore Code Blocks**: Tasks (`[]`, `[x]`) inside inline code (\` \`) or fenced code blocks (\`\`\` \`\`\`) are now automatically ignored prevent false positives.
+- **Clear All Exclusions Command**: Easily restore all hidden items using the "Clear All Exclusions" button in the view title bar.
+
+### Changed
+- Improved Task Progress view refresh logic to react to configuration changes.
+
 ## [0.0.3] - 2026-04-03
 
 ### Added
