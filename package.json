@@ -1,0 +1,68 @@
+{
+  "name": "md-task-tracker",
+  "displayName": "md-task-tracker",
+  "description": "",
+  "version": "0.0.1",
+  "publisher": "ashina",
+  "engines": {
+    "vscode": "^1.75.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [],
+  "main": "./out/extension.js",
+  "contributes": {
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "md-tasks-explorer",
+          "title": "MD Tasks",
+          "icon": "resources/icon.svg"
+        }
+      ]
+    },
+    "views": {
+      "md-tasks-explorer": [
+        {
+          "id": "md-tasks-view",
+          "name": "Task Progress"
+        }
+      ]
+    },
+    "commands": [
+      {
+        "command": "md-tasks-tracker.refresh",
+        "title": "Refresh",
+        "icon": "$(refresh)"
+      }
+    ],
+    "menus": {
+      "view/title": [
+        {
+          "command": "md-tasks-tracker.refresh",
+          "when": "view == md-tasks-view",
+          "group": "navigation"
+        }
+      ]
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "npm run compile && npm run lint",
+    "lint": "eslint src",
+    "test": "vscode-test"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.110.0",
+    "@types/mocha": "^10.0.10",
+    "@types/node": "22.x",
+    "typescript-eslint": "^8.56.1",
+    "eslint": "^9.39.3",
+    "typescript": "^5.9.3",
+    "@vscode/test-cli": "^0.0.12",
+    "@vscode/test-electron": "^2.5.2"
+  }
+}
