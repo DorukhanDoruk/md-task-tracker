@@ -2,7 +2,7 @@
   "name": "ashina-task-tracker",
   "displayName": "MD Task Tracker",
   "description": "",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "publisher": "AshinaLabs",
   "repository": {
     "type": "git",
@@ -11,7 +11,7 @@
   "author": "DorukhanDoruk",
   "license": "MIT",
   "engines": {
-    "vscode": "^1.110.0"
+    "vscode": "^1.107.0"
   },
   "categories": [
     "Other"
@@ -63,7 +63,7 @@
     "test": "vscode-test"
   },
   "devDependencies": {
-    "@types/vscode": "^1.110.0",
+    "@types/vscode": "^1.107.0",
     "@types/mocha": "^10.0.10",
     "@types/node": "22.x",
     "typescript-eslint": "^8.56.1",

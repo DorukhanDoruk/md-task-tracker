@@ -13,8 +13,9 @@ Works with all common markdown checkbox styles! It detects `[]`, `[ ]`, and `[x]
 ### 🎨 Color-coded Progress
 Visual feedback from red to green:
 - **Red**: 0% completed
-- **Orange/Yellow**: In progress (1% - 99%)
-- **Blue**: High progress (70%+)
+- **Orange**: 1% - 39% progress
+- **Yellow**: 40% - 69% progress
+- **Blue**: 70% - 99% progress
 - **Green**: 100% completed!
 Progress percentages are displayed as badges next to filenames and folders.
 
