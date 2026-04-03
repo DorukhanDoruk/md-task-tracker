@@ -2,7 +2,7 @@
   "name": "ashina-task-tracker",
   "displayName": "MD Task Tracker",
   "description": "",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "publisher": "AshinaLabs",
   "repository": {
     "type": "git",
@@ -42,6 +42,11 @@
         "command": "md-tasks-tracker.refresh",
         "title": "Refresh",
         "icon": "$(refresh)"
+      },
+      {
+        "command": "md-tasks-tracker.openAndHighlightTasks",
+        "title": "Open File and Highlight Tasks",
+        "icon": "$(go-to-file)"
       }
     ],
     "menus": {

@@ -214,8 +214,8 @@ class MarkdownFileItem extends TaskItem {
         );
 
         this.command = {
-            command: 'vscode.open',
-            title: 'Open File',
+            command: 'md-tasks-tracker.openAndHighlightTasks',
+            title: 'Open File with Highlights',
             arguments: [this.uri]
         };
     }

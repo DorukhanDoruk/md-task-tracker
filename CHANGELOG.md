@@ -2,6 +2,16 @@
 
 All notable changes to the "md-task-tracker" extension will be documented in this file.
 
+## [0.0.3] - 2026-04-03
+
+### Added
+- **Task Highlighting in Editor**: Task checkboxes (`[ ]`, `[x]`, `[X]`) are now visually highlighted (with red/green background colors) when markdown files are opened from the MD Tasks panel. Highlights automatically update when the tracked file is saved.
+
+## [0.0.2] - 2026-04-03
+
+### Changed
+- Fixed ActivityBar icon and view container configurations.
+
 ## [0.0.1] - 2026-04-03
 
 ### Added
