@@ -94,7 +94,9 @@ export function activate(context: vscode.ExtensionContext) {
     let excludeCommand = vscode.commands.registerCommand('md-tasks-tracker.excludePath', async (item: any) => {
         if (!item || !item.resourceUri) return;
         
-        const relativePath = vscode.workspace.asRelativePath(item.resourceUri);
+        // Ensure we use the file scheme for relative path calculation
+        const fileUri = item.resourceUri.with({ scheme: 'file' });
+        const relativePath = vscode.workspace.asRelativePath(fileUri);
         const config = vscode.workspace.getConfiguration('mdTaskTracker');
         const excludePaths = config.get<string[]>('excludePaths') || [];
         

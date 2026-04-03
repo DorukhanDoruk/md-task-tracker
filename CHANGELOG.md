@@ -2,6 +2,11 @@
 
 All notable changes to the "md-task-tracker" extension will be documented in this file.
 
+## [0.1.1] - 2026-04-03
+ 
+### Fixed
+- **Explorer Decoration Isolation**: Progress badges and colors are now isolated to the dedicated "Task Progress" view and will no longer appear in the standard VS Code Explorer.
+ 
 ## [0.1.0] - 2026-04-03
 
 ### Added

@@ -100,8 +100,9 @@ export class MarkdownTaskProvider implements vscode.TreeDataProvider<TaskItem> {
                     rootItems.push(fileItem);
                 }
                 
-                // Update decoration provider
-                TaskDecorationProvider.getInstance().updateProgress(file, percentage);
+                // Update decoration provider with our custom scheme URI
+                const decorationUri = file.with({ scheme: 'md-task-tracker' });
+                TaskDecorationProvider.getInstance().updateProgress(decorationUri, percentage);
             }
         }
 
@@ -158,7 +159,7 @@ export abstract class TaskItem extends vscode.TreeItem {
 class FolderItem extends TaskItem {
     constructor(folderName: string, uri: vscode.Uri) {
         super(folderName, vscode.TreeItemCollapsibleState.Expanded);
-        this.resourceUri = uri;
+        this.resourceUri = uri.with({ scheme: 'md-task-tracker' });
         this.iconPath = vscode.ThemeIcon.Folder;
     }
 
@@ -240,7 +241,7 @@ class MarkdownFileItem extends TaskItem {
         this.label = `[ ${percentage}% ] ${fileName}`;
         this.tooltip = `${fileName} - ${completed}/${total} tasks completed`;
         this.description = `${completed}/${total}`;
-        this.resourceUri = uri;
+        this.resourceUri = uri.with({ scheme: 'md-task-tracker' });
 
         // Visual icon based on progress
         this.iconPath = new vscode.ThemeIcon(

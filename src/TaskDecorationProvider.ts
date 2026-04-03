@@ -27,6 +27,10 @@ export class TaskDecorationProvider implements vscode.FileDecorationProvider {
     }
 
     provideFileDecoration(uri: vscode.Uri): vscode.ProviderResult<vscode.FileDecoration> {
+        if (uri.scheme !== 'md-task-tracker') {
+            return undefined;
+        }
+
         const percentage = this._progressMap.get(uri.toString());
         if (percentage === undefined) {
             return undefined;
