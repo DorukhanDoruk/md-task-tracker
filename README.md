@@ -1,71 +1,45 @@
-# md-task-tracker README
+# Markdown Task Tracker
 
-This is the README for your extension "md-task-tracker". After writing up a brief description, we recommend including the following sections.
+Markdown Task Tracker is a VS Code extension that helps you track your task progress across markdown files in your workspace. It provides a dedicated view in the Activity Bar to visualize your task completion status at a glance.
 
 ## Features
 
-Describe specific features of your extension including screenshots of your extension in action. Image paths are relative to this README file.
+### 📂 Hierarchical Tree View
+Tasks are organized by your workspace's folder structure. Folders aggregate the progress of all markdown files within them, helping you see the overall status of different projects or components.
 
-For example if there is an image subfolder under your extension project workspace:
+### 🔍 Flexible Checkbox Detection
+Works with all common markdown checkbox styles! It detects `[ ]` and `[x]` whether they are part of a standard list (`-`, `*`, `1.`) or just free-standing in your text.
 
-\!\[feature X\]\(images/feature-x.png\)
+### 🎨 Color-coded Progress
+Visual feedback from red to green:
+- **Red**: 0% completed
+- **Orange/Yellow**: In progress (1% - 99%)
+- **Blue**: High progress (70%+)
+- **Green**: 100% completed!
+Progress percentages are displayed as badges next to filenames and folders.
 
-> Tip: Many popular extensions utilize animations. This is an excellent way to show off your extension! We recommend short, focused animations that are easy to follow.
+### 🔄 Automatic Updates
+The view refreshes automatically whenever you save a markdown file, keeping your progress up to date in real-time.
 
-## Requirements
+## Installation
 
-If you have any requirements or dependencies, add a section describing those and how to install and configure them.
+1. Open your project in VS Code.
+2. Look for the **MD Tasks** icon in the Activity Bar on the left.
+3. Your markdown files with checkboxes will automatically appear there.
 
 ## Extension Settings
 
-Include if your extension adds any VS Code settings through the `contributes.configuration` extension point.
-
-For example:
-
-This extension contributes the following settings:
-
-* `myExtension.enable`: Enable/disable this extension.
-* `myExtension.thing`: Set to `blah` to do something.
-
-## Known Issues
-
-Calling out known issues can help limit users opening duplicate issues against your extension.
+This extension currently does not contribute any custom settings.
 
 ## Release Notes
 
-Users appreciate release notes as you update your extension.
-
-### 1.0.0
-
-Initial release of ...
-
-### 1.0.1
-
-Fixed issue #.
-
-### 1.1.0
-
-Added features X, Y, and Z.
+### 0.0.1
+Initial release with:
+- Hierarchical folder/file tree view.
+- Flexible checkbox detection.
+- Color-coded progress status via File Decorations.
+- English localization.
 
 ---
 
-## Following extension guidelines
-
-Ensure that you've read through the extensions guidelines and follow the best practices for creating your extension.
-
-* [Extension Guidelines](https://code.visualstudio.com/api/references/extension-guidelines)
-
-## Working with Markdown
-
-You can author your README using Visual Studio Code. Here are some useful editor keyboard shortcuts:
-
-* Split the editor (`Cmd+\` on macOS or `Ctrl+\` on Windows and Linux).
-* Toggle preview (`Shift+Cmd+V` on macOS or `Shift+Ctrl+V` on Windows and Linux).
-* Press `Ctrl+Space` (Windows, Linux, macOS) to see a list of Markdown snippets.
-
-## For more information
-
-* [Visual Studio Code's Markdown Support](http://code.visualstudio.com/docs/languages/markdown)
-* [Markdown Syntax Reference](https://help.github.com/articles/markdown-basics/)
-
-**Enjoy!**
+**Enjoy tracking your tasks!**
