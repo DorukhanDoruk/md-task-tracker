@@ -42,8 +42,8 @@ export class MarkdownTaskProvider implements vscode.TreeDataProvider<TaskItem> {
             const document = await vscode.workspace.openTextDocument(file);
             const text = document.getText();
 
-            // Flexible regex: finds [ ] or [x] with any or no prefix
-            const totalMatch = text.match(/\[[ xX]\]/g);
+            // Flexible regex: finds [], [ ], [x], or [X] with any or no prefix
+            const totalMatch = text.match(/\[[ xX]?\]/g);
             const completedMatch = text.match(/\[[xX]\]/g);
 
             const total = totalMatch ? totalMatch.length : 0;

@@ -8,7 +8,7 @@ Markdown Task Tracker is a VS Code extension that helps you track your task prog
 Tasks are organized by your workspace's folder structure. Folders aggregate the progress of all markdown files within them, helping you see the overall status of different projects or components.
 
 ### 🔍 Flexible Checkbox Detection
-Works with all common markdown checkbox styles! It detects `[ ]` and `[x]` whether they are part of a standard list (`-`, `*`, `1.`) or just free-standing in your text.
+Works with all common markdown checkbox styles! It detects `[]`, `[ ]`, and `[x]` whether they are part of a standard list (`-`, `*`, `1.`) or just free-standing in your text.
 
 ### 🎨 Color-coded Progress
 Visual feedback from red to green:

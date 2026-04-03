@@ -1,11 +1,17 @@
 {
-  "name": "md-task-tracker",
-  "displayName": "md-task-tracker",
+  "name": "ashina-task-tracker",
+  "displayName": "MD Task Tracker",
   "description": "",
   "version": "0.0.1",
-  "publisher": "ashina",
+  "publisher": "AshinaLabs",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/DorukhanDoruk/md-task-tracker.git"
+  },
+  "author": "DorukhanDoruk",
+  "license": "MIT",
   "engines": {
-    "vscode": "^1.75.0"
+    "vscode": "^1.110.0"
   },
   "categories": [
     "Other"
@@ -26,7 +32,8 @@
       "md-tasks-explorer": [
         {
           "id": "md-tasks-view",
-          "name": "Task Progress"
+          "name": "Task Progress",
+          "icon": "resources/icon.svg"
         }
       ]
     },
