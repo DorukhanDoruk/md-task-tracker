@@ -1,6 +1,10 @@
 # Markdown Task Tracker
 
+[![Marketplace](https://img.shields.io/visual-studio-marketplace/v/AshinaLabs.ashina-task-tracker?style=for-the-badge&logo=visual-studio-code&label=Marketplace)](https://marketplace.visualstudio.com/items?itemName=AshinaLabs.ashina-task-tracker)
+
 Markdown Task Tracker is a VS Code extension that helps you track your task progress across markdown files in your workspace. It provides a dedicated view in the Activity Bar to visualize your task completion status at a glance.
+
+![Demo](resources/demo_mockup.png)
 
 ## Features
 
@@ -24,22 +28,22 @@ The view refreshes automatically whenever you save a markdown file, keeping your
 
 ## Installation
 
-1. Open your project in VS Code.
-2. Look for the **MD Tasks** icon in the Activity Bar on the left.
-3. Your markdown files with checkboxes will automatically appear there.
+1. Install the [**Markdown Task Tracker**](https://marketplace.visualstudio.com/items?itemName=AshinaLabs.ashina-task-tracker) from the VS Code Marketplace.
+2. Click the **MD Tasks** icon in the Activity Bar on the left side of your editor.
+3. Your markdown files containing task checkboxes will automatically appear in the tree view.
 
 ## Extension Settings
 
-This extension currently does not contribute any custom settings.
+You can exclude specific paths from task tracking by adding them to the `mdTaskTracker.excludePaths` setting in your `settings.json`.
 
 ## Release Notes
 
-### 0.0.1
-Initial release with:
+### 0.1.1
 - Hierarchical folder/file tree view.
 - Flexible checkbox detection.
 - Color-coded progress status via File Decorations.
-- English localization.
+- Context menu options to exclude files or folders.
+- Automatic refresh on file save.
 
 ---
 

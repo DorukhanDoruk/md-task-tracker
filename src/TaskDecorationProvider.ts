@@ -37,24 +37,28 @@ export class TaskDecorationProvider implements vscode.FileDecorationProvider {
         }
 
         let color: vscode.ThemeColor;
-        let badge: string = `${percentage}%`;
+        let badge: string;
 
         if (percentage === 100) {
             color = new vscode.ThemeColor('charts.green');
+            badge = '✓';
         } else if (percentage >= 70) {
             color = new vscode.ThemeColor('charts.blue');
+            badge = `${percentage}`;
         } else if (percentage >= 40) {
             color = new vscode.ThemeColor('charts.yellow');
+            badge = `${percentage}`;
         } else if (percentage > 0) {
             color = new vscode.ThemeColor('charts.orange');
+            badge = `${percentage}`;
         } else {
             color = new vscode.ThemeColor('charts.red');
+            badge = '0';
         }
 
         return {
-            badge: badge,
-            color: color,
-            tooltip: `Task Progress: ${percentage}%`
+            badge: badge.substring(0, 2), // VS Code limits badges to 2 characters
+            tooltip: `Progress: ${percentage}%`
         };
     }
 }

@@ -2,7 +2,20 @@
 
 All notable changes to the "md-task-tracker" extension will be documented in this file.
 
-## [0.1.1] - 2026-04-03
+## [0.1.2] - 2026-04-05
+
+### Added
+- **Premium Demo Mockup**: Added a high-quality Visual Studio Code mockup to the README.
+- **Marketplace Integration**: Added a badge and official link to the extension's marketplace page.
+
+### Changed
+- **UI Refinement (Option B Alignment)**: Refactored the tree view layout to achieve superior alignment.
+    - Path percentage (e.g., `82` or `✓`) is now placed as a decoration badge on the far-right of the window.
+    - Task counts (e.g., `10/12`) are now clearly separated in the description field.
+    - Retained high-contrast white text for file/folder names.
+- **Improved Iconography**: Added color-coded status icons for folders to match the existing file decoration logic (Red -> Orange -> Yellow -> Blue -> Green checkmark).
+
+[0.1.1] - 2026-04-03
  
 ### Fixed
 - **Explorer Decoration Isolation**: Progress badges and colors are now isolated to the dedicated "Task Progress" view and will no longer appear in the standard VS Code Explorer.

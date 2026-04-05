@@ -160,7 +160,17 @@ class FolderItem extends TaskItem {
     constructor(folderName: string, uri: vscode.Uri) {
         super(folderName, vscode.TreeItemCollapsibleState.Expanded);
         this.resourceUri = uri.with({ scheme: 'md-task-tracker' });
-        this.iconPath = vscode.ThemeIcon.Folder;
+    }
+
+    private getIconForPercentage(percentage: number): vscode.ThemeIcon {
+        let colorId: string;
+        if (percentage === 100) colorId = 'charts.green';
+        else if (percentage >= 70) colorId = 'charts.blue';
+        else if (percentage >= 40) colorId = 'charts.yellow';
+        else if (percentage > 0) colorId = 'charts.orange';
+        else colorId = 'charts.red';
+
+        return new vscode.ThemeIcon('folder', new vscode.ThemeColor(colorId));
     }
 
     calculateProgress() {
@@ -216,8 +226,9 @@ class FolderItem extends TaskItem {
         });
 
         this.percentage = totalTasks > 0 ? Math.round((completedTasks / totalTasks) * 100) : 0;
-        this.description = `${completedTasks}/${totalTasks} (${this.percentage}%)`;
+        this.description = `${completedTasks}/${totalTasks}`;
         this.tooltip = `${this.label}: ${completedTasks}/${totalTasks} tasks completed`;
+        this.iconPath = this.getIconForPercentage(this.percentage);
         
         // Highlight folders too
         if (this.resourceUri) {
@@ -238,16 +249,30 @@ class MarkdownFileItem extends TaskItem {
         const fileName = path.basename(uri.fsPath);
         super(fileName, vscode.TreeItemCollapsibleState.None);
 
-        this.label = `[ ${percentage}% ] ${fileName}`;
+        this.label = fileName;
         this.tooltip = `${fileName} - ${completed}/${total} tasks completed`;
         this.description = `${completed}/${total}`;
         this.resourceUri = uri.with({ scheme: 'md-task-tracker' });
 
         // Visual icon based on progress
-        this.iconPath = new vscode.ThemeIcon(
-            percentage === 100 ? 'pass-filled' : 'circle-large-outline',
-            new vscode.ThemeColor(percentage === 100 ? 'charts.green' : percentage > 0 ? 'charts.orange' : 'charts.red')
-        );
+        let iconId: string = 'circle-outline';
+        let colorId: string = 'charts.red';
+
+        if (percentage === 100) {
+            iconId = 'pass-filled';
+            colorId = 'charts.green';
+        } else if (percentage >= 70) {
+            iconId = 'circle-filled';
+            colorId = 'charts.blue';
+        } else if (percentage >= 40) {
+            iconId = 'circle-filled';
+            colorId = 'charts.yellow';
+        } else if (percentage > 0) {
+            iconId = 'circle-outline';
+            colorId = 'charts.orange';
+        }
+
+        this.iconPath = new vscode.ThemeIcon(iconId, new vscode.ThemeColor(colorId));
 
         this.command = {
             command: 'md-tasks-tracker.openAndHighlightTasks',
