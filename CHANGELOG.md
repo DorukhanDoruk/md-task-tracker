@@ -2,6 +2,13 @@
 
 All notable changes to the "md-task-tracker" extension will be documented in this file.
 
+## [0.1.3] - 2026-04-08
+
+### Changed
+- **Deterministic Task Sorting**: Improved sidebar organization by implementing a dual-sorting strategy.
+    - Tasks are primarily sorted by completion percentage (descending).
+    - Tasks with identical progress are now alphabetically sorted by name (ascending), ensuring a consistent UI on refresh.
+
 ## [0.1.2] - 2026-04-05
 
 ### Added

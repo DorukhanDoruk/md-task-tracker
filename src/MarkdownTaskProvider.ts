@@ -119,7 +119,14 @@ export class MarkdownTaskProvider implements vscode.TreeDataProvider<TaskItem> {
         // Let's ensure only top-level items are in rootItems.
         // The loop above adds to rootItems only if parent is undefined.
         
-        return finalRoots.sort((a, b) => b.percentage - a.percentage);
+        return finalRoots.sort((a, b) => {
+            if (b.percentage !== a.percentage) {
+                return b.percentage - a.percentage;
+            }
+            const labelA = typeof a.label === 'string' ? a.label : a.label?.label || '';
+            const labelB = typeof b.label === 'string' ? b.label : b.label?.label || '';
+            return labelA.localeCompare(labelB);
+        });
     }
 
     private isExcluded(relativePath: string, excludePaths: string[]): boolean {
@@ -235,7 +242,14 @@ class FolderItem extends TaskItem {
             TaskDecorationProvider.getInstance().updateProgress(this.resourceUri, this.percentage);
         }
         
-        this.children.sort((a, b) => b.percentage - a.percentage);
+        this.children.sort((a, b) => {
+            if (b.percentage !== a.percentage) {
+                return b.percentage - a.percentage;
+            }
+            const labelA = typeof a.label === 'string' ? a.label : a.label?.label || '';
+            const labelB = typeof b.label === 'string' ? b.label : b.label?.label || '';
+            return labelA.localeCompare(labelB);
+        });
     }
 }
 
